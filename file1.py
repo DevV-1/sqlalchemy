@@ -42,7 +42,7 @@ class Thing(Base):
     
 
 #making engine
-engine = create_engine("sqlite:///mydb.db", echo = True)
+engine = create_engine("sqlite:///database/db1.db", echo = True)
 Base.metadata.create_all(bind=engine)  #will transfer data into db table format and create mydb.db file
 
 #creating session
@@ -50,16 +50,16 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 #creating objects
-# person1 = Person(12312, "Mike", "Smith", "m", 23)
-# person2 = Person(21213, "Anna", "Blue", "f", 25)
-# person3 = Person(32132, "Bob", "White", "m", 26)
-# person4 = Person(31231, "Angela", "Cold", "f", 43)
+person1 = Person(12312, "Mike", "Smith", "m", 23)
+person2 = Person(21213, "Anna", "Blue", "f", 25)
+person3 = Person(32132, "Bob", "White", "m", 26)
+person4 = Person(31231, "Angela", "Cold", "f", 43)
 
-# #adding to session
-# session.add(person1)
-# session.add(person2)
-# session.add(person3)
-# session.add(person4)
+#adding to session
+session.add(person1)
+session.add(person2)
+session.add(person3)
+session.add(person4)
 
 #adding together
 # session.add([person1, person2])
@@ -96,14 +96,14 @@ session = Session()
 
 # #creating second table
     
-# t1 = Thing(1, "laptop", person1.ssn)
-# t2 = Thing(2, "mouse", person2.ssn)
-# t3 = Thing(3, "keys", person3.ssn)
-# t4 = Thing(4, "car", person1.ssn)
-# t5 = Thing(5, "hi", person4.ssn)
+t1 = Thing(1, "laptop", person1.ssn)
+t2 = Thing(2, "mouse", person2.ssn)
+t3 = Thing(3, "keys", person3.ssn)
+t4 = Thing(4, "car", person1.ssn)
+t5 = Thing(5, "hi", person4.ssn)
 
-# session.add_all([t1,t2,t3,t4,t5])
-# session.commit()
+session.add_all([t1,t2,t3,t4,t5])
+session.commit()
 
 results = session.query(Thing, Person).filter(Thing.owner == Person.ssn).filter(Person.fname == "Anna")
 for r in results:

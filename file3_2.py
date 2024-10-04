@@ -3,7 +3,6 @@
 from sqlalchemy.orm import sessionmaker
 from file3_1 import User, engine, Session
 from datetime import datetime
-import random
 
 
 #creating session
@@ -23,17 +22,6 @@ session = Session(bind=engine)
 # session.add(user5)
 # session.commit()
 
-# user6 = User(16, "Vink", "fgh@gmail.com", datetime.strptime('17/12/12', '%d/%m/%y'))
-# session.add(user6)
-# session.commit()
-
-# #adding random users:
-id = [1,2,3,4,5,6,7,8,9,10]
-name = ['Andrew', 'Iron', 'John', 'Jane', 'Jenny']
-age = [20, 21, 23, 22, 24]
-
-for i in range(10) : 
-    user = User(id = id[i],uname = random.choice(name), age = random.choice(age))
-    session.add(user)
-
+user6 = User(16, "Vink", "fgh@gmail.com", datetime.strptime('17/12/12', '%d/%m/%y'))
+session.add(user6)
 session.commit()

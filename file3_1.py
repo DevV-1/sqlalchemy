@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, DateTime
+from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, DateTime, Date
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -19,9 +19,10 @@ class User(Base):
     id = Column("id",Integer, primary_key = True)
     unname = Column("unname",String(25), nullable = False, unique=True)
     email = Column("email",String, unique=True)
-    date = Column("date", DateTime(), default=datetime.utcnow)
+    date = Column("date", Date(), default=datetime.utcnow) #just date
+    # date = Column("date", DateTime(), default=datetime.utcnow) #time as well
 
-    def __init__(self, id, uname, email, date):
+    def __init__(self, id, uname, email, date=None):
         self.id = id
         self.unname = uname
         self.email = email
@@ -38,8 +39,8 @@ Base.metadata.create_all(bind=engine)  #will transfer data into db table format 
 Session = sessionmaker(bind=engine)
 session = Session()
 
-#creating objects
-user1 = User(1, "Mike","abc@gmail.com", datetime.strptime('12/12/12', '%d/%m/%y') )
+#creating objects 
+user1 = User(id = 1, uname= "Mike",email="abc@gmail.com")  #default value will be considered here
 user2 = User(2, "Anna", "bcd@gmail.com", datetime.strptime('13/12/12', '%d/%m/%y'))
 user3 = User(3, "Bob", "cde@gmail.com", datetime.strptime('14/12/12', '%d/%m/%y'))
 user4 = User(4, "Angela", "def@gmail.com", datetime.strptime('15/12/12', '%d/%m/%y'))

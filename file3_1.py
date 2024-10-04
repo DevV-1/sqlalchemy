@@ -17,8 +17,8 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column("id",Integer, primary_key = True)
-    unname = Column("unname",String(25), nullable = False, unique=True)
-    email = Column("email",String, unique=True)
+    unname = Column("unname",String(25), nullable = False)
+    email = Column("email",String)
     date = Column("date", Date(), default=datetime.utcnow) #just date
     # date = Column("date", DateTime(), default=datetime.utcnow) #time as well
 
@@ -29,8 +29,9 @@ class User(Base):
         self.date = date
 
     def __repr__(self):
-        return f'{self.id} {self.uname} {self.email} on {self.date}'
+        return f'{self.id} {self.unname} {self.email} on {self.date}'
     
+
 #making engine
 engine = create_engine("sqlite:///database/db3.db", echo = True)
 Base.metadata.create_all(bind=engine)  #will transfer data into db table format and create mydb.db file
@@ -38,12 +39,3 @@ Base.metadata.create_all(bind=engine)  #will transfer data into db table format 
 #creating session
 Session = sessionmaker(bind=engine)
 session = Session()
-
-#creating objects 
-user1 = User(id = 1, uname= "Mike",email="abc@gmail.com")  #default value will be considered here
-user2 = User(2, "Anna", "bcd@gmail.com", datetime.strptime('13/12/12', '%d/%m/%y'))
-user3 = User(3, "Bob", "cde@gmail.com", datetime.strptime('14/12/12', '%d/%m/%y'))
-user4 = User(4, "Angela", "def@gmail.com", datetime.strptime('15/12/12', '%d/%m/%y'))
-
-session.add_all([user1,user2,user3, user4])
-session.commit()
